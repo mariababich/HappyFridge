@@ -1,10 +1,14 @@
 package ua.iasa.happyfridge.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-public class User {
+public class SystemUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -16,16 +20,34 @@ public class User {
 
     private String email;
 
-    @ManyToMany
+//    private List<String> adress;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Set<Role> roles;
 
-    public User() {}
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Order> orders;
 
-    public User(String username, String password, String email, Set<Role> roles) {
+    public SystemUser() {}
+
+
+
+    public SystemUser(String username, String password, String email, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.roles = roles;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public String getEmail() {

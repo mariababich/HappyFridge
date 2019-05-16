@@ -1,0 +1,27 @@
+version: "3"
+services:
+#  frontend:
+#    container_name: ui
+#    build:
+#      context: .
+#      dockerfile: <your front Dockerfile>
+#    ports:
+#      - 80:80
+#    depends_on:
+#      - server
+
+  ui:
+    image: marymahaon/happy-fridge:test-save
+
+  cloud:
+    image: marymahaon/happy-fridge:back-v1
+
+  proxy:
+    container_name: haproxy
+    image: marymahaon/happy-fridge:haproxy
+    ports:
+      - "80:80"
+    depends_on:
+      - cloud
+      - ui
+
