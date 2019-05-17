@@ -2,6 +2,7 @@ package ua.iasa.happyfridge.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class UserRegistrationRequest {
 
@@ -17,12 +18,23 @@ public class UserRegistrationRequest {
     @NotEmpty
     private String email;
 
+    private List<String> adressList;
+
     public UserRegistrationRequest() {}
 
-    public UserRegistrationRequest(String username, String password, String email) {
+    public UserRegistrationRequest(@NotNull @NotEmpty String username, @NotNull @NotEmpty String password, @NotNull @NotEmpty String email, List<String> adressList) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.adressList = adressList;
+    }
+
+    public List<String> getAdressList() {
+        return adressList;
+    }
+
+    public void setAdressList(List<String> adressList) {
+        this.adressList = adressList;
     }
 
     public String getUsername() {

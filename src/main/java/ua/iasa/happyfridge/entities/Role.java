@@ -1,5 +1,7 @@
 package ua.iasa.happyfridge.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,6 +14,7 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonManagedReference
     private Set<User> users;
 
     public Role(){}

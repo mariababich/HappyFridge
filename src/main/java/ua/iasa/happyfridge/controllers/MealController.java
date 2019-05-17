@@ -2,9 +2,7 @@ package ua.iasa.happyfridge.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.iasa.happyfridge.dto.CreateMealRequest;
 import ua.iasa.happyfridge.entities.Ingredient;
 import ua.iasa.happyfridge.entities.Meal;
@@ -43,5 +41,24 @@ public class MealController {
 
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/meals/select")
+    public List<Meal> selectMeal(){
+        Iterable<Meal> all = mealRepository.findAll();
+        List<Meal> meals = new ArrayList<>();
+        all.forEach(meals::add);
+        return meals;
+    }
+
+    @GetMapping(path = "/meals/select/{id}")
+    public Meal selectMealById(@PathVariable Long id) {
+        return mealRepository.getById(id);
+    }
+
+
+    @PutMapping("/meals/update")
+    public Meal updateMeal(@RequestBody Meal meal){
+        return mealRepository.save(meal);
     }
 }

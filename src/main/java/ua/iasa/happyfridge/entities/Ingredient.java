@@ -17,6 +17,12 @@ public class Ingredient {
     private Double amount;
     private String measure;
 
+    public Ingredient(String name, Double amount, String measure) {
+        this.name = name;
+        this.amount = amount;
+        this.measure = measure;
+    }
+
     public Ingredient(){}
 
     public Ingredient(String name) {

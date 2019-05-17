@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.iasa.happyfridge.config.security.CustomUser;
 import ua.iasa.happyfridge.entities.Role;
 import ua.iasa.happyfridge.entities.User;
 import ua.iasa.happyfridge.repositories.UserRepository;
@@ -36,7 +37,6 @@ public class MyUserDetailsService implements UserDetailsService {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
-
+        return new CustomUser(user.getUsername(), user.getPassword(), grantedAuthorities, user.getId(), user.getEmail(), user.getOrders(), user.getAdresses());
     }
 }

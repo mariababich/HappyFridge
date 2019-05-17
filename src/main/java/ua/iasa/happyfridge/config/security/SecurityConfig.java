@@ -1,4 +1,4 @@
-package ua.iasa.happyfridge.config;
+package ua.iasa.happyfridge.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

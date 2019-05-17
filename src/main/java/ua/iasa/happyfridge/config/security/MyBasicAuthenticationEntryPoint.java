@@ -1,4 +1,4 @@
-package ua.iasa.happyfridge.config;
+package ua.iasa.happyfridge.config.security;
 
 import ch.qos.logback.core.util.ContentTypeUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
