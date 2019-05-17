@@ -10,6 +10,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -48,61 +49,45 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
-//
-//    @Override
-//    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication()
-//                .dataSource(appDataSource())
-//                .and()
-//                .inMemoryAuthentication()
-//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
-//                .and()
-//                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
-//                .and()
-//                .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
-//    }
+
+    @Override
+    public void configure(WebSecurity webSecurity) throws Exception
+    {
+        webSecurity
+                .ignoring()
+                .antMatchers("/registration");
+    }
+
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .headers().frameOptions().sameOrigin()
                 .and()
-                .httpBasic()
-                .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/meals/select").permitAll()
+                .antMatchers("/cabinet/**").authenticated()
+                .antMatchers("/order/**").authenticated()
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/login*").permitAll()
+                .antMatchers(HttpMethod.POST, "/registration").anonymous()
+                .antMatchers("/users/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST, "/meals/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/meals/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/meals/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/meals/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET, "/meals").permitAll()
-                .antMatchers("/cabinet/**").authenticated()
-                .antMatchers("/order/**").authenticated()
-                .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/authentication*").permitAll()
-                .antMatchers("/registration").permitAll()
-//
-//                .anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .httpBasic()
                 .and()
                 .logout();
-//                .addFilter(authenticationFilter());
 
     }
 
-//    @Bean
-//    public OncePerRequestFilter authenticationFilter() throws Exception {
-//        return new AuthFilter("/authentication", authenticationManager(),
-//                new MyBasicAuthenticationEntryPoint("HappyFridge", "/authentication"));
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//    }
 }
