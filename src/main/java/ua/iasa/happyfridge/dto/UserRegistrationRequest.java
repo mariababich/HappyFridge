@@ -18,23 +18,23 @@ public class UserRegistrationRequest {
     @NotEmpty
     private String email;
 
-    private List<String> adressList;
+    private List<String> adresses;
 
     public UserRegistrationRequest() {}
 
-    public UserRegistrationRequest(@NotNull @NotEmpty String username, @NotNull @NotEmpty String password, @NotNull @NotEmpty String email, List<String> adressList) {
+    public UserRegistrationRequest(@NotNull @NotEmpty String username, @NotNull @NotEmpty String password, @NotNull @NotEmpty String email, List<String> adresses) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.adressList = adressList;
+        this.adresses = adresses;
     }
 
-    public List<String> getAdressList() {
-        return adressList;
+    public List<String> getAdresses() {
+        return adresses;
     }
 
-    public void setAdressList(List<String> adressList) {
-        this.adressList = adressList;
+    public void setAdresses(List<String> adresses) {
+        this.adresses = adresses;
     }
 
     public String getUsername() {

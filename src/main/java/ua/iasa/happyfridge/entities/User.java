@@ -1,6 +1,7 @@
 package ua.iasa.happyfridge.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -36,7 +37,6 @@ public class User{
     @ElementCollection
     @CollectionTable(name = "user_adresses", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "adress")
-    @JsonBackReference
     private List<String> adresses = new ArrayList<>();
 
     public User() {}

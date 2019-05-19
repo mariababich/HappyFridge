@@ -31,7 +31,7 @@ public class UserController {
     public ResponseEntity<User> registration(@RequestBody UserRegistrationRequest request) {
         User newUser = new User(request.getUsername(),
                 bCryptPasswordEncoder.encode(request.getPassword()),
-                request.getEmail(), singleton(roleRepository.findByName("USER")), request.getAdressList());
+                request.getEmail(), singleton(roleRepository.findByName("USER")), request.getAdresses());
         User save = userRepository.save(newUser);
         return ResponseEntity.ok(save);
     }
@@ -44,11 +44,15 @@ public class UserController {
         return users;
     }
 
-    @PutMapping(path = "/user/update")
-    public ResponseEntity updateUser(@RequestBody User user){
-
-        User updateUser = userRepository.save(user);
-        return ResponseEntity.ok(updateUser);
+    @PutMapping(path = "/user/update/{id}")
+    public ResponseEntity updateUser(@RequestBody UserRegistrationRequest request, @PathVariable Long id){
+        User updateUser = userRepository.getById(id);
+        updateUser.setAdresses(request.getAdresses());
+        updateUser.setEmail(request.getEmail());
+        updateUser.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
+        updateUser.setUsername(request.getUsername());
+        User save = userRepository.save(updateUser);
+        return ResponseEntity.ok(save);
     }
 
 }
