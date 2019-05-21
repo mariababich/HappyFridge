@@ -1,5 +1,6 @@
 package ua.iasa.happyfridge.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,20 +13,19 @@ import ua.iasa.happyfridge.repositories.MealRepository;
 import ua.iasa.happyfridge.repositories.RoleRepository;
 import ua.iasa.happyfridge.repositories.UserRepository;
 
-import javax.validation.constraints.Null;
-
 import java.util.Arrays;
-import java.util.List;
 
 import static java.util.Collections.singleton;
 
 @Service
+@RequiredArgsConstructor
 public class InitService implements SmartInitializingSingleton {
 
     private final MealRepository mealRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final IngredientRepository ingredientRepository;
+    private final MailService mailService;
     private BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
 
     private Ingredient ing1 = new Ingredient("sugar");
@@ -39,13 +39,6 @@ public class InitService implements SmartInitializingSingleton {
 
     private Role roleuser = new Role("USER");
     private Role roleadmin = new Role("ADMIN");
-
-    public InitService(MealRepository mealRepository, RoleRepository roleRepository, UserRepository userRepository, IngredientRepository ingredientRepository) {
-        this.mealRepository = mealRepository;
-        this.roleRepository = roleRepository;
-        this.userRepository = userRepository;
-        this.ingredientRepository = ingredientRepository;
-    }
 
     @Override
     public void afterSingletonsInstantiated() {

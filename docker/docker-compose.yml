@@ -1,20 +1,14 @@
 version: "3"
 services:
-#  frontend:
-#    container_name: ui
-#    build:
-#      context: .
-#      dockerfile: <your front Dockerfile>
-#    ports:
-#      - 80:80
-#    depends_on:
-#      - server
 
   ui:
     image: marymahaon/happy-fridge:test-save
 
   cloud:
     image: marymahaon/happy-fridge:back-v1
+    environment:
+      - SPRING_MAIL_USERNAME=username
+      - SPEING_MAIL_PASSWORD=password
 
   proxy:
     container_name: haproxy

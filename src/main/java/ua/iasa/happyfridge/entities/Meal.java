@@ -1,9 +1,6 @@
 package ua.iasa.happyfridge.entities;
 
-import lombok.Data;
-
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 
