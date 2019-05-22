@@ -1,5 +1,6 @@
 package ua.iasa.happyfridge.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +15,12 @@ import java.util.List;
 
 
 @RestController
+@RequiredArgsConstructor
 public class MealController {
 
-    @Autowired
-    private MealRepository mealRepository;
-    @Autowired
-    private IngredientRepository ingredientRepository;
+    private final MealRepository mealRepository;
+
+    private final IngredientRepository ingredientRepository;
 
     @PostMapping("/meals/add")
     public ResponseEntity addMeal(@RequestBody CreateMealRequest request) {
@@ -36,7 +37,7 @@ public class MealController {
         }
 
         Meal meal = new Meal(request.getName(), request.getAmount(), request.getExpirationDate(),
-                request.getDiscount(), request.getPrice(), ingredientList);
+                request.getDiscount(), request.getPrice(),request.getImageId(), ingredientList);
         mealRepository.save(meal);
 
 

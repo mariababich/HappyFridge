@@ -1,10 +1,17 @@
 package ua.iasa.happyfridge.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,11 +22,12 @@ public class Meal {
     private Long expirationDate;
     private Integer discount;
     private Double price;
+    private Long imageId;
+
 
     @ManyToMany
     private List<Ingredient> ingredients;
 
-    public Meal() { }
 
     public Meal(String name, Integer amount, Long expirationDate, Integer discount, Double price, List<Ingredient> ingredients) {
         this.name = name;
@@ -30,62 +38,13 @@ public class Meal {
         this.ingredients = ingredients;
     }
 
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-
-    public Integer getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Integer discount) {
-        this.discount = discount;
-    }
-    //    @ElementCollection
-//    private List<Ingredient> ingredients;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Meal(String name, Integer amount, Long expirationDate, Integer discount, Double price, Long imageId, List<Ingredient> ingredients) {
         this.name = name;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
         this.amount = amount;
-    }
-
-    public Long getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(Long expirationDate) {
         this.expirationDate = expirationDate;
+        this.discount = discount;
+        this.price = price;
+        this.imageId = imageId;
+        this.ingredients = ingredients;
     }
 }
