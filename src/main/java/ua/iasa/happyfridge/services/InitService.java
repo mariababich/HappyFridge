@@ -51,7 +51,7 @@ public class InitService implements SmartInitializingSingleton {
         mealRepository.save(meal3);
         roleRepository.save(roleuser);
         roleRepository.save(roleadmin);
-        User useradmin = new User("admin", bCryptPasswordEncoder.encode("admin"), "admin.email", singleton(roleRepository.findByName("ADMIN")));
+        User useradmin = new User("admin", bCryptPasswordEncoder.encode("admin"), "maria.babich@gmail.com", singleton(roleRepository.findByName("ADMIN")));
         userRepository.save(useradmin);
     }
 

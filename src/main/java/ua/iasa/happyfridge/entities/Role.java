@@ -1,6 +1,7 @@
 package ua.iasa.happyfridge.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Set;

@@ -2,13 +2,13 @@ version: "3"
 services:
 
   ui:
-    image: marymahaon/happy-fridge:test-save
+    image: marymahaon/happy-fridge:front-v4.0
 
   cloud:
-    image: marymahaon/happy-fridge:back-v1
+    image: marymahaon/happy-fridge:back-v2.4
     environment:
       - SPRING_MAIL_USERNAME=username
-      - SPEING_MAIL_PASSWORD=password
+      - SPRING_MAIL_PASSWORD=password
 
   proxy:
     container_name: haproxy
